@@ -3,6 +3,7 @@ import client from "@/config/apolloclient";
 import "@/styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
 
+
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
