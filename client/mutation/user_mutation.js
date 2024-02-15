@@ -12,4 +12,16 @@ const ADD_USER = gql`
   }
 `;
 
-export { ADD_USER };
+const UPDATE_USER = gql`
+  #graphql
+  mutation updateUser($id: ID!, $age: Int, $name: String) {
+    updateUser(id: $id, name: $name, age: $age) {
+      id
+      name
+      age
+      email
+    }
+  }
+`;
+
+export { ADD_USER, UPDATE_USER };
