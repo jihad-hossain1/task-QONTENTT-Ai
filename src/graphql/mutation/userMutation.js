@@ -1,6 +1,7 @@
 import { GraphQLID, GraphQLString, GraphQLInt, GraphQLNonNull } from "graphql";
 import { UserType } from "../typeDefs/typeDefs";
 import User from "@/models/user.models";
+import ApiResponse from "@/utils/apiResponse";
 
 const addUser = {
   type: UserType,
@@ -34,7 +35,6 @@ const addUser = {
   },
 };
 
-
 const updateUser = {
   type: UserType,
   args: {
@@ -64,4 +64,19 @@ const updateUser = {
   },
 };
 
-export { addUser, updateUser };
+const deleteUser = {
+  type: UserType,
+  args: {
+    id: { type: new GraphQLNonNull(GraphQLID) },
+  },
+  resolve: async (parent, args) => {
+    const { id } = args;
+    try {
+      return await User.findByIdAndDelete(id);
+    } catch (error) {
+      return new Error(error);
+    }
+  },
+};
+
+export { addUser, updateUser, deleteUser };
