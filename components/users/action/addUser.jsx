@@ -5,6 +5,7 @@ import { GET_ALLUSERS } from "@/client/query/user_Query";
 import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 
 const AddUser = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,13 +39,16 @@ const AddUser = () => {
     if (error) {
       console.log(error?.message);
     } else if (data) {
+      toast.success("user data added successfull");
       setage(0);
       setname("");
       setemail("");
+      setIsOpen(false);
     }
   }, [error, data]);
   return (
     <>
+      <Toaster />
       <button
         className={
           isOpen
@@ -55,68 +59,57 @@ const AddUser = () => {
       >
         <FaUserPlus />
       </button>
-      {isOpen &&
-        (data ? (
-          <div className="max-w-sm mx-auto p-2 text-green-600 flex flex-col gap-3">
-            <h4>create a user successfull</h4>
-            <button
-              className="ml-5  bg-purple-600 px-1 text-purple-50 rounded w-fit"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              add another user
-            </button>
-          </div>
-        ) : (
-          <div className="max-w-sm mx-auto p-2">
-            <form onSubmit={handleAddUser} className="flex flex-col gap-4">
-              <input
-                type="text"
-                placeholder="Name"
-                className="border bg-transparent border-purple-500 p-3 rounded shadow-sm hover:shadow"
-                name=""
-                id=""
-                onChange={(e) => setname(e.target.value)}
-                value={name}
-              />
-              <input
-                type="number"
-                placeholder="Name"
-                className="border bg-transparent border-purple-500 p-3 rounded shadow-sm hover:shadow"
-                name=""
-                id=""
-                onChange={(e) => setage(e.target.value)}
-                value={age}
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                className="border bg-transparent border-purple-500 p-3 rounded shadow-sm hover:shadow"
-                name=""
-                id=""
-                onChange={(e) => setemail(e.target.value)}
-                value={email}
-              />
-              <div className="my-2 text-sm text-pink-600">
-                {error && error?.message}
-              </div>
-              <div className="flex gap-4">
-                <button
-                  type="submit"
-                  className="uppercase border border-purple-800 bg-purple-700 hover:bg-purple-700/90 text-purple-50 px-3 text-sm rounded shadow-sm hover:shadow transition-all"
-                >
-                  {loading ? "loading..." : "Create"}
-                </button>
-                <button
-                  className="uppercase border border-pink-800 bg-pink-700 text-purple-50 px-3 text-sm rounded shadow-sm hover:shadow transition-all"
-                  type="button"
-                  onClick={() => handleCancel()}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        ))}
+      {isOpen && (
+        <div className="max-w-sm mx-auto p-2">
+          <form onSubmit={handleAddUser} className="flex flex-col gap-4">
+            <input
+              type="text"
+              placeholder="Name"
+              className="border bg-transparent border-purple-500 p-3 rounded shadow-sm hover:shadow"
+              name=""
+              id=""
+              onChange={(e) => setname(e.target.value)}
+              value={name}
+            />
+            <input
+              type="number"
+              placeholder="Name"
+              className="border bg-transparent border-purple-500 p-3 rounded shadow-sm hover:shadow"
+              name=""
+              id=""
+              onChange={(e) => setage(e.target.value)}
+              value={age}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="border bg-transparent border-purple-500 p-3 rounded shadow-sm hover:shadow"
+              name=""
+              id=""
+              onChange={(e) => setemail(e.target.value)}
+              value={email}
+            />
+            <div className="my-2 text-sm text-pink-600">
+              {error && error?.message}
+            </div>
+            <div className="flex gap-4">
+              <button
+                type="submit"
+                className="uppercase border border-purple-800 bg-purple-700 hover:bg-purple-700/90 text-purple-50 px-3 text-sm rounded shadow-sm hover:shadow transition-all"
+              >
+                {loading ? "loading..." : "Create"}
+              </button>
+              <button
+                className="uppercase border border-pink-800 bg-pink-700 text-purple-50 px-3 text-sm rounded shadow-sm hover:shadow transition-all"
+                type="button"
+                onClick={() => handleCancel()}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </>
   );
 };

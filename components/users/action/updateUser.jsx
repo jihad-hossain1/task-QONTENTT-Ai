@@ -38,8 +38,8 @@ const UpdateUser = ({ user }) => {
   }, [error, data]);
   return (
     <>
-      <button onClick={() => setModal(!modal)}>
-        <HiMiniPencilSquare />
+      <button className="text-green-500" onClick={() => setModal(!modal)}>
+        <HiMiniPencilSquare size={20} />
       </button>
 
       <Modal openModal={modal} closeModal={() => setModal(false)}>

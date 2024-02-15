@@ -23,5 +23,13 @@ const UPDATE_USER = gql`
     }
   }
 `;
+const DELETE_USER = gql`
+  #graphql
+  mutation deleteUser($id: ID!) {
+    deleteUser(id: $id) {
+      id
+    }
+  }
+`;
 
-export { ADD_USER, UPDATE_USER };
+export { ADD_USER, UPDATE_USER, DELETE_USER };
