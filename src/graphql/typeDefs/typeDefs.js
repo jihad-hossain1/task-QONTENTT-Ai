@@ -1,4 +1,9 @@
-import { GraphQLObjectType, GraphQLID, GraphQLString } from "graphql";
+import {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLString,
+  GraphQLInt,
+} from "graphql";
 
 const UserType = new GraphQLObjectType({
   name: "User",
@@ -6,7 +11,7 @@ const UserType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     email: { type: GraphQLString },
-    password: { type: GraphQLString },
+    age: { type: GraphQLInt },
   }),
 });
 
