@@ -34,4 +34,34 @@ const addUser = {
   },
 };
 
-export { addUser };
+
+const updateUser = {
+  type: UserType,
+  args: {
+    id: { type: new GraphQLNonNull(GraphQLID) },
+    name: { type: GraphQLString },
+    age: { type: GraphQLInt },
+  },
+
+  resolve: async (parent, args) => {
+    const { name, age, id } = args;
+
+    if (name === "") {
+      return new Error("name are empty , please fill the name");
+    } else if (age === 0) {
+      return new Error("age are empty , please fill the age ");
+    }
+    return User.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          name,
+          age,
+        },
+      },
+      { new: true }
+    );
+  },
+};
+
+export { addUser, updateUser };
